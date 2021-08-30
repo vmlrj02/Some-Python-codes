@@ -1,0 +1,127 @@
+from IPython.display import clear_output
+import random
+
+def display(board):
+    clear_output()
+    print(board[7]+'|'+board[8]+'|'+board[9])
+    print('-----')
+    print(board[4]+'|'+board[5]+'|'+board[6])
+    print('-----')
+    print(board[1]+'|'+board[2]+'|'+board[3])
+    
+def player_input():
+    player = False
+    while player is False:
+        marker= input("Player_1 Choose either X or O:").upper()
+        if marker in ('X','O'):
+            player = True
+    if marker =='X':
+            return ('X','O')
+    else:
+            return ('O','X')
+def place_marker(board, marker, position):
+    board[int(position)]=marker
+   
+def win_check(a,mark):
+    return((a[7]==mark and a[8]==mark and a[9]==mark) or
+            (a[4]==mark and a[5]==mark and a[6]==mark) or
+            (a[1]==mark and a[2]==mark and a[3]==mark) or
+            (a[7]==mark and a[4]==mark and a[1]==mark) or
+            (a[8]==mark and a[5]==mark and a[2]==mark) or
+            (a[9]==mark and a[6]==mark and a[3]==mark) or
+            (a[7]==mark and a[5]==mark and a[3]==mark) or
+            (a[9]==mark and a[5]==mark and a[1]==mark))
+
+def choose_first():
+    x=random.randint(1,2)
+    if x==1:
+        return ('player_1')
+    else:
+        return ('player_2')
+    
+def space_check(board,position):
+    return board[position]==' '
+    
+def full_board_check(board):
+    return ' ' not in board
+    
+def players_choice(board):
+    player = False
+    while player is False:
+        position=input("Enter number between 1 to 9:")
+        if position in ['1','2','3','4','5','6','7','8','9'] and space_check(board,int(position)):
+            player= True
+            return int(position)
+        else:
+            print(" Choose number between 1 and 9 which is not already in the board!")
+            
+def replay():
+    rep=False
+    while rep is False:
+        x=input('Do you want to play again? Choose Y or N:')
+        if x.upper() in ("Y","N"):
+            rep = True
+    return x.upper()=='Y'
+    
+print("Welcome to Tic Tac Toe!!")
+while True:
+    board= ['#',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+    player1_marker,player2_marker=player_input()
+    turn = choose_first()
+    print(turn+'will start first!')
+    z=False
+    while z==False:
+        game_on = input("Do you want to start this game? Enter Y or N:")
+        if game_on.lower() in ("y",'n'):
+                z=True
+        if game_on.lower() =="y":
+            game_on = True
+        else:
+            game_on = False
+    while game_on:
+        if turn == "player_1":
+            display(board)
+            place_marker(board, player1_marker, players_choice(board))
+            if win_check(board,player1_marker):
+                display(board)
+                print("Congrats! Player1 has own the game!")
+                game_on = False
+            else:
+                if full_board_check(board):
+                    display(board)
+                    print("This game is a Tie!")
+                    break
+                else:
+                    turn = 'player_2'
+                    
+        else: 
+            display(board)
+            place_marker(board, player2_marker, players_choice(board))
+            if win_check(board,player2_marker):
+                display(board)
+                print("Congrats! Player2 has own the game!")
+                game_on = False
+            else:
+                if full_board_check(board):
+                    display(board)
+                    print("This game is a Tie!")
+                    break
+                else:
+                    turn = 'player_1'
+    if not replay():
+        break
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     
