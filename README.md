@@ -1,2 +1,2 @@
 # tic-tac-toe-game
-This is a code for tic tac toe game
+This repo contains python code for the following games 
