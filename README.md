@@ -1,3 +1,3 @@
 
 
-This repo contains python code for the following games 
+This repo contains some python codes.
